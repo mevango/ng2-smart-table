@@ -10,7 +10,7 @@ var server_source_conf_1 = require('./server-source.conf');
 var helpers_1 = require('../../helpers');
 var ServerDataSource = (function (_super) {
     __extends(ServerDataSource, _super);
-    function ServerDataSource(http, conf) {
+    function ServerDataSource(conf, http) {
         if (conf === void 0) { conf = {}; }
         _super.call(this);
         this.http = http;
