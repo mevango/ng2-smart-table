@@ -5,3 +5,4 @@ function __export(m) {
 __export(require('./grid'));
 __export(require('./data-source/local/local.data-source'));
 __export(require('./data-source/server/server.data-source'));
+__export(require('./data-source/server/server-source.conf'));
