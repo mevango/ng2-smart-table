@@ -7,7 +7,7 @@ export declare class ServerDataSource extends LocalDataSource {
     protected http: Http;
     protected conf: ServerSourceConf;
     protected lastRequestCount: number;
-    constructor(conf: ServerSourceConf | {}, http: Http);
+    constructor(http: Http, conf?: ServerSourceConf | {});
     count(): number;
     getElements(): Promise<any>;
     /**

@@ -12,7 +12,7 @@ export class ServerDataSource extends LocalDataSource {
 
   protected lastRequestCount: number = 0;
 
-  constructor(conf: ServerSourceConf|{} = {}, protected http: Http) {
+  constructor(protected http: Http, conf: ServerSourceConf|{} = {}) {
     super();
 
     this.conf = new ServerSourceConf(conf);
