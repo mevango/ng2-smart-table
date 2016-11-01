@@ -15,7 +15,8 @@ export class BasicExampleDataComponent {
   settings = {
     columns: {
       id: {
-        title: 'ID'
+        title: 'ID',
+        hideable: false
       },
       albumId: {
         title: 'Album'

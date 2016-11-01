@@ -9,6 +9,7 @@ import { Row } from './lib/data-set/row';
 
 import { deepExtend } from './lib/helpers';
 import { LocalDataSource } from './lib/data-source/local/local.data-source';
+import {Column} from "./lib/data-set/column";
 
 @Component({
   selector: 'ng2-smart-table',
@@ -159,6 +160,13 @@ export class Ng2SmartTableComponent implements OnChanges {
 
     this.grid.save(row, this.editConfirm);
     return false;
+  }
+
+  onChangeColumns(grid : Grid, event){
+    for (var i = 0; i < event.target.length; i++) {
+      var obj = event.target[i];
+      grid.getDataSet().findColumnById(obj.value).visible = obj.selected;
+    }
   }
 
   protected initGrid(): void {

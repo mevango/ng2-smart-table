@@ -27,6 +27,10 @@ export class DataSet {
     return this.columns;
   }
 
+  findColumnById(id): Column {
+    return this.columns.find((column: Column) => column.id === id);
+  }
+
   getRows(): Array<Row> {
     return this.rows;
   }
