@@ -1,5 +1,4 @@
 import { DataSet } from './data-set';
-import { ICustomFilter } from "../../components/filter/ICustomFilter";
 export declare class Column {
     id: string;
     protected settings: any;
@@ -17,12 +16,12 @@ export declare class Column {
     protected compareFunction: Function;
     protected valuePrepareFunction: Function;
     protected filterFunction: Function;
-    protected filterModule: ICustomFilter;
+    protected filterModule: any;
     constructor(id: string, settings: any, dataSet: DataSet);
     getCompareFunction(): Function;
     getValuePrepareFunction(): Function;
     getFilterFunction(): Function;
-    getFilterModule(): ICustomFilter;
+    getFilterModule(): any;
     protected process(): void;
     protected prepareType(): string;
     protected prepareSortDirection(): string;

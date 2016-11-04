@@ -1,7 +1,6 @@
 import { ViewContainerRef } from '@angular/core';
-import {ICustomFilter} from "../../../../../../../src/ng2-smart-table/components/filter/ICustomFilter";
 
-export class DateFilterComponent implements ICustomFilter{
+export class DateFilterComponent {
   attachFilter = function(filterCell:ViewContainerRef, onFilter:Function){
     console.log(filterCell);
     setTimeout(function(){

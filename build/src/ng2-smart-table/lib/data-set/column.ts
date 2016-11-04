@@ -1,6 +1,5 @@
 import { DataSet } from './data-set';
 import {FilterComponent} from "../../components/filter/filter.component";
-import {ICustomFilter} from "../../components/filter/ICustomFilter";
 
 export class Column {
 
@@ -17,7 +16,7 @@ export class Column {
   protected compareFunction: Function;
   protected valuePrepareFunction: Function;
   protected filterFunction: Function;
-  protected filterModule : ICustomFilter;
+  protected filterModule : any;
 
   constructor(public id: string, protected settings: any, protected dataSet: DataSet) {
     this.process();
@@ -34,7 +33,7 @@ export class Column {
   public getFilterFunction(): Function {
     return this.filterFunction;
   }
-  public getFilterModule(): ICustomFilter {
+  public getFilterModule(): any {
     return this.filterModule;
   }
 
