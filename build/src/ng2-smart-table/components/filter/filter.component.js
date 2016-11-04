@@ -19,11 +19,23 @@ var FilterComponent = (function () {
     }
     FilterComponent.prototype.ngAfterViewInit = function () {
         var _this = this;
+        if (this.column.getFilterModule()) {
+            console.log(this.column.getFilterModule(), this.column);
+            this.column.getFilterModule().attachFilter(this.filterCell, this.externalFilter.bind(this));
+        }
         this.source.onChanged().subscribe(function (elements) {
             var filterConf = _this.source.getFilter();
             if (filterConf && filterConf.filters && filterConf.filters.length === 0) {
                 _this.query = '';
             }
+        });
+    };
+    FilterComponent.prototype.externalFilter = function (event) {
+        console.log(event);
+        this.source.addFilter({
+            field: this.column.id,
+            search: event.value,
+            filter: this.column.getFilterFunction()
         });
     };
     FilterComponent.prototype.filter = function (event) {
@@ -60,11 +72,15 @@ var FilterComponent = (function () {
         core_1.Input(), 
         __metadata('design:type', String)
     ], FilterComponent.prototype, "inputClass", void 0);
+    __decorate([
+        core_1.ViewChild('filterCell', { read: core_1.ViewContainerRef }), 
+        __metadata('design:type', core_1.ViewContainerRef)
+    ], FilterComponent.prototype, "filterCell", void 0);
     FilterComponent = __decorate([
         core_1.Component({
             selector: 'ng2-smart-table-filter',
             styles: [require('./filter.scss')],
-            template: "\n    <div class=\"ng2-smart-filter\" *ngIf=\"column.isFilterable\">\n      <input \n      [(ngModel)]=\"query\"\n      (keyup)=\"filter($event)\"\n      [ngClass]=\"inputClass\"\n      class=\"form-control\"\n      type=\"text\" \n      placeholder=\"{{ column.title }}\" />\n    </div>\n  "
+            template: "\n    <div #filterCell class=\"ng2-smart-filter\" *ngIf=\"column.isFilterable\">\n      <input *ngIf=\"!column.getFilterModule()\"\n      [(ngModel)]=\"query\"\n      (keyup)=\"filter($event)\"\n      [ngClass]=\"inputClass\"\n      class=\"form-control\"\n      type=\"text\" \n      placeholder=\"{{ column.title }}\" />\n    </div>\n  "
         }), 
         __metadata('design:paramtypes', [])
     ], FilterComponent);

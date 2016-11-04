@@ -18,6 +18,7 @@ export declare class Grid {
     setSource(source: DataSource): void;
     getSetting(name: string, defaultValue?: any): any;
     getColumns(): Array<Column>;
+    getHideableColumns(): Array<Column>;
     getRows(): Array<Row>;
     selectRow(row: Row): void;
     onSelectRow(): Observable<any>;

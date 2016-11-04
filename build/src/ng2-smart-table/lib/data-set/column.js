@@ -6,10 +6,12 @@ var Column = (function () {
         this.dataSet = dataSet;
         this.title = '';
         this.type = '';
+        this.visible = true;
         this.class = '';
         this.isSortable = false;
         this.isEditable = true;
         this.isFilterable = false;
+        this.isHideable = true;
         this.sortDirection = '';
         this.defaultSortDirection = '';
         this.process();
@@ -23,6 +25,9 @@ var Column = (function () {
     Column.prototype.getFilterFunction = function () {
         return this.filterFunction;
     };
+    Column.prototype.getFilterModule = function () {
+        return this.filterModule;
+    };
     Column.prototype.process = function () {
         this.title = this.settings['title'];
         this.class = this.settings['class'];
@@ -31,6 +36,8 @@ var Column = (function () {
         this.defaultSortDirection = ['asc', 'desc'].indexOf(this.settings['sortDirection']) !== -1 ? this.settings['sortDirection'] : '';
         this.isSortable = typeof this.settings['sort'] === 'undefined' ? true : !!this.settings['sort'];
         this.isEditable = typeof this.settings['editable'] === 'undefined' ? true : !!this.settings['editable'];
+        this.isHideable = typeof this.settings['hideable'] === 'undefined' ? true : !!this.settings['hideable'];
+        this.filterModule = this.settings['filterModule'];
         this.sortDirection = this.prepareSortDirection();
         this.compareFunction = this.settings['compareFunction'];
         this.valuePrepareFunction = this.settings['valuePrepareFunction'];

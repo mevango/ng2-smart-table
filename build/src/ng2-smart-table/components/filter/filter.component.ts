@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, ViewChild, ElementRef, ViewContainerRef } from '@angular/core';
 
 import { DataSource } from '../../lib/data-source/data-source';
 import { Column } from '../../lib/data-set/column';
@@ -7,8 +7,8 @@ import { Column } from '../../lib/data-set/column';
   selector: 'ng2-smart-table-filter',
   styles: [require('./filter.scss')],
   template: `
-    <div class="ng2-smart-filter" *ngIf="column.isFilterable">
-      <input 
+    <div #filterCell class="ng2-smart-filter" *ngIf="column.isFilterable">
+      <input *ngIf="!column.getFilterModule()"
       [(ngModel)]="query"
       (keyup)="filter($event)"
       [ngClass]="inputClass"
@@ -24,16 +24,32 @@ export class FilterComponent {
   @Input() source: DataSource;
   @Input() inputClass: string = '';
 
+  @ViewChild('filterCell', {read: ViewContainerRef})
+  protected filterCell: ViewContainerRef;
+
   query: string = '';
   timeout: any;
   delay: number = 300;
 
   ngAfterViewInit(): void {
+    if(this.column.getFilterModule()){
+      console.log(this.column.getFilterModule(), this.column);
+      this.column.getFilterModule().attachFilter(this.filterCell,this.externalFilter.bind(this))
+    }
     this.source.onChanged().subscribe((elements) => {
       let filterConf = this.source.getFilter();
       if (filterConf && filterConf.filters && filterConf.filters.length === 0) {
         this.query = '';
       }
+    });
+  }
+
+  externalFilter(event){
+    console.log(event);
+    this.source.addFilter({
+      field: this.column.id,
+      search: event.value,
+      filter: this.column.getFilterFunction()
     });
   }
 

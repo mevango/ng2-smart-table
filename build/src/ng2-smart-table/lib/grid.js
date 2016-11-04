@@ -38,7 +38,14 @@ var Grid = (function () {
         return helpers_1.getDeepFromObject(this.settings, name, defaultValue);
     };
     Grid.prototype.getColumns = function () {
-        return this.dataSet.getColumns();
+        return this.dataSet.getColumns().filter(function (column) {
+            return column.visible;
+        });
+    };
+    Grid.prototype.getHideableColumns = function () {
+        return this.dataSet.getColumns().filter(function (column) {
+            return column.isHideable;
+        });
     };
     Grid.prototype.getRows = function () {
         return this.dataSet.getRows();

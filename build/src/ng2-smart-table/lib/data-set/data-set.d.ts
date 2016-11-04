@@ -11,6 +11,7 @@ export declare class DataSet {
     constructor(data: Array<any>, columnSettings: Object);
     setData(data: Array<any>): void;
     getColumns(): Array<Column>;
+    findColumnById(id: any): Column;
     getRows(): Array<Row>;
     findRowByData(data: any): Row;
     deselectAll(): void;
