@@ -25,7 +25,8 @@ export class BasicExampleDataComponent {
         title: 'Title'
       },
       url: {
-        title: 'Url'
+        title: 'Url',
+        type: 'date'
       }
     }
   };
