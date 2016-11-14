@@ -38,6 +38,7 @@ export class CustomServerDataSource extends LocalDataSource {
 
     return this.http.get(url).map(res => {
       this.lastRequestCount = +res.headers.get('x-total-count');
+      console.log(res);
       return res.json();
     }).toPromise();
   }

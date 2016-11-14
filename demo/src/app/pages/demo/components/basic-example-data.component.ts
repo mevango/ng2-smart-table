@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { CustomServerDataSource } from './serve.data-source';
 import { Http } from '@angular/http';
+import {CustomServerDataSourceCRM} from "./serve.data-source-crm";
 
 @Component({
   selector: 'basic-example-data',
   styles: [],
-  providers: [CustomServerDataSource],
+  providers: [CustomServerDataSourceCRM],
   template: `
     <ng2-smart-table [settings]="settings" [source]="source"></ng2-smart-table>
   `
@@ -14,23 +15,23 @@ export class BasicExampleDataComponent {
 
   settings = {
     columns: {
-      id: {
-        title: 'ID',
+      username: {
+        title: 'Username',
         hideable: false
       },
-      albumId: {
-        title: 'Album'
+      first_name: {
+        title: 'First Name'
       },
-      title: {
-        title: 'Title'
+      last_name: {
+        title: 'Last Name'
       },
-      url: {
-        title: 'Url',
+      created_at: {
+        title: 'Created',
         type: 'date'
       }
     }
   };
 
-  constructor(protected source: CustomServerDataSource) {
+  constructor(protected source: CustomServerDataSourceCRM) {
   }
 }

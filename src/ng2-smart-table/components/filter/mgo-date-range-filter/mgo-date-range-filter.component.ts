@@ -56,6 +56,19 @@ export class MgoDateRangeFilter implements AfterViewInit {
 
         jQuery('#' + this.idDatePicker).on('apply.daterangepicker', function(ev, picker) {
             jQuery(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+            console.log(self.filter.column, picker.startDate);
+            self.filter.source.addFilter({
+                field: self.filter.column.id,
+                search: picker.startDate.format('x'),
+                type: "gt", //gt,lt,like
+                filter: self.filter.column.getFilterFunction()
+            });
+            self.filter.source.addFilter({
+                field: self.filter.column.id,
+                search: picker.endDate.format('x'),
+                type: "lt", //gt,lt,like
+                filter: self.filter.column.getFilterFunction()
+            });
         });
 
         jQuery('#' + this.idDatePicker).on('cancel.daterangepicker', function(ev, picker) {
