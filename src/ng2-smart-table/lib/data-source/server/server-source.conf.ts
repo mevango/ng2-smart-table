@@ -21,9 +21,10 @@ export class ServerSourceConf {
   filterFieldKeyGt: string;
   totalKey: string;
   dataKey: string;
+  withCredentials:boolean;
 
   constructor(
-    {endPoint = '', sortFieldKey = '', sortDirKey = '', pagerPageKey = '', pagerLimitKey = '', filterFieldKey = '', filterFieldKeyLt = '', filterFieldKeyGt = '', totalKey = '', dataKey = ''} = {}) {
+    {endPoint = '', sortFieldKey = '', sortDirKey = '', pagerPageKey = '', pagerLimitKey = '', filterFieldKey = '', filterFieldKeyLt = '', filterFieldKeyGt = '', totalKey = '', dataKey = '', withCredentials = false} = {}) {
 
     this.endPoint = endPoint ? endPoint : '';
 
@@ -36,5 +37,6 @@ export class ServerSourceConf {
     this.filterFieldKeyGt = filterFieldKeyGt ? filterFieldKeyGt : ServerSourceConf.FILTER_FIELD_KEY_GT;
     this.totalKey = totalKey ? totalKey : ServerSourceConf.TOTAL_KEY;
     this.dataKey = dataKey ? dataKey : ServerSourceConf.DATA_KEY;
+    this.withCredentials = withCredentials ? withCredentials : false;
   }
 }
