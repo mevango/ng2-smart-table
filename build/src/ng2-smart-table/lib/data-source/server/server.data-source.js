@@ -65,6 +65,7 @@ var ServerDataSource = (function (_super) {
     ServerDataSource.prototype.createRequestOptions = function () {
         var requestOptions = {};
         requestOptions.search = new url_search_params_1.URLSearchParams();
+        requestOptions.withCredentials = this.conf.withCredentials;
         requestOptions = this.addSortRequestOptions(requestOptions);
         requestOptions = this.addFilterRequestOptions(requestOptions);
         return this.addPagerRequestOptions(requestOptions);
