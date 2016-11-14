@@ -2,19 +2,24 @@ import { Component, Input, ViewChild, ElementRef } from '@angular/core';
 
 import { DataSource } from '../../lib/data-source/data-source';
 import { Column } from '../../lib/data-set/column';
+import { MgoDateRangeFilter } from "mgo-date-range-filter/mgo-date-range-filter.component";
+
 
 @Component({
   selector: 'ng2-smart-table-filter',
   styles: [require('./filter.scss')],
   template: `
-    <div class="ng2-smart-filter" *ngIf="column.isFilterable">
-      <input 
+    <div class="ng2-smart-filter" *ngIf="column.isFilterable && column.type=='string'">
+      <input
       [(ngModel)]="query"
       (keyup)="filter($event)"
       [ngClass]="inputClass"
       class="form-control"
-      type="text" 
+      type="text"
       placeholder="{{ column.title }}" />
+    </div>
+    <div class="ng2-smart-filter" *ngIf="column.isFilterable && column.type=='date'">
+          <mgo-date-range-filter [filter]="this"></mgo-date-range-filter>
     </div>
   `
 })

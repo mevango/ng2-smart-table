@@ -18,7 +18,9 @@ export class Row {
   }
 
   getCells() {
-    return this.cells;
+    return this.cells.filter(function(cell:Cell){
+        return cell.getColumn().visible;
+    });
   }
 
   getData(): any {

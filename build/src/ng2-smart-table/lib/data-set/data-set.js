@@ -20,6 +20,9 @@ var DataSet = (function () {
     DataSet.prototype.getColumns = function () {
         return this.columns;
     };
+    DataSet.prototype.findColumnById = function (id) {
+        return this.columns.find(function (column) { return column.id === id; });
+    };
     DataSet.prototype.getRows = function () {
         return this.rows;
     };

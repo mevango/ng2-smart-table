@@ -167,7 +167,7 @@ export class LocalDataSource extends DataSource {
 
     let found = false;
     this.filterConf.filters.forEach((currentFieldConf, index) => {
-      if (currentFieldConf['field'] === fieldConf['field']) {
+      if (currentFieldConf['field'] === fieldConf['field'] && currentFieldConf['type'] === fieldConf['type']) {
         this.filterConf.filters[index] = fieldConf;
         found = true;
       }

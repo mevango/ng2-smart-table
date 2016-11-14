@@ -4,10 +4,12 @@ export class Column {
 
   public title: string = '';
   public type: string = '';
+  public visible: boolean = true;
   public class: string = '';
   public isSortable: boolean = false;
   public isEditable: boolean = true;
   public isFilterable: boolean = false;
+  public isHideable: boolean = true;
   public sortDirection: string = '';
   public defaultSortDirection: string = '';
   protected compareFunction: Function;
@@ -39,6 +41,7 @@ export class Column {
     this.defaultSortDirection = ['asc', 'desc'].indexOf(this.settings['sortDirection']) !== -1 ? this.settings['sortDirection'] : '';
     this.isSortable = typeof this.settings['sort'] === 'undefined' ? true : !!this.settings['sort'];
     this.isEditable = typeof this.settings['editable'] === 'undefined' ? true : !!this.settings['editable'];
+    this.isHideable = typeof this.settings['hideable'] === 'undefined' ? true : !!this.settings['hideable'];
     this.sortDirection = this.prepareSortDirection();
 
     this.compareFunction = this.settings['compareFunction'];
