@@ -144,6 +144,12 @@ var Ng2SmartTableComponent = (function () {
         this.grid.save(row, this.editConfirm);
         return false;
     };
+    Ng2SmartTableComponent.prototype.onChangeColumns = function (grid, event) {
+        for (var i = 0; i < event.target.length; i++) {
+            var obj = event.target[i];
+            grid.getDataSet().findColumnById(obj.value).visible = obj.selected;
+        }
+    };
     Ng2SmartTableComponent.prototype.initGrid = function () {
         var _this = this;
         this.source = this.prepareSource();

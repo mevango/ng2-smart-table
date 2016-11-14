@@ -85,8 +85,20 @@ var ServerDataSource = (function (_super) {
         var searchParams = requestOptions.search;
         if (this.filterConf.filters) {
             this.filterConf.filters.forEach(function (fieldConf) {
+                console.log(fieldConf);
                 if (fieldConf['search']) {
-                    searchParams.set(_this.conf.filterFieldKey.replace('#field#', fieldConf['field']), fieldConf['search']);
+                    var template = _this.conf.filterFieldKey;
+                    if (fieldConf['type']) {
+                        switch (fieldConf['type']) {
+                            case 'gt':
+                                template = _this.conf.filterFieldKeyGt;
+                                break;
+                            case 'lt':
+                                template = _this.conf.filterFieldKeyLt;
+                                break;
+                        }
+                    }
+                    searchParams.set(template.replace('#field#', fieldConf['field']), fieldConf['search']);
                 }
             });
         }

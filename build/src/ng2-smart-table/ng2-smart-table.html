@@ -4,9 +4,13 @@
 
     <tr class="ng2-smart-titles" *ngIf="!grid.getSetting('hideHeader')">
       <th *ngIf="grid.showActionColumn()" class="ng2-smart-actions">
-        <div class="ng2-smart-title">{{ grid.getSetting('actions.columnTitle') }}</div>
+        <div class="ng2-smart-title">
+          <select multiple (change)="onChangeColumns(grid, $event)">
+            <option *ngFor="let column of grid.getHideableColumns()" [value]="column.id" [attr.selected]="column.visible">{{ column.title }}</option>
+          </select>
+        </div>
       </th>
-      <th *ngFor="let column of grid.getColumns()" class="ng2-smart-th {{ column.id }}" [ngClass]="column.class">
+      <th *ngFor="let column of grid.getColumns()" class="ng2-smart-th" [ngClass]="column.class">
         <div class="ng2-smart-title">
           <ng2-smart-table-title [source]="source" [column]="column"></ng2-smart-table-title>
         </div>

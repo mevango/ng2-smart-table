@@ -14,7 +14,9 @@ var Row = (function () {
         return this.cells.find(function (el) { return el.getColumn() === column; });
     };
     Row.prototype.getCells = function () {
-        return this.cells;
+        return this.cells.filter(function (cell) {
+            return cell.getColumn().visible;
+        });
     };
     Row.prototype.getData = function () {
         return this.data;

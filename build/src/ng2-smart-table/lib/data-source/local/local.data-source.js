@@ -156,7 +156,7 @@ var LocalDataSource = (function (_super) {
         }
         var found = false;
         this.filterConf.filters.forEach(function (currentFieldConf, index) {
-            if (currentFieldConf['field'] === fieldConf['field']) {
+            if (currentFieldConf['field'] === fieldConf['field'] && currentFieldConf['type'] === fieldConf['type']) {
                 _this.filterConf.filters[index] = fieldConf;
                 found = true;
             }

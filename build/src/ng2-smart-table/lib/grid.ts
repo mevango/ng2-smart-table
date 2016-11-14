@@ -58,7 +58,14 @@ export class Grid {
   }
 
   getColumns(): Array<Column> {
-    return this.dataSet.getColumns();
+    return this.dataSet.getColumns().filter(function(column:Column){
+      return column.visible;
+    });
+  }
+  getHideableColumns(): Array<Column> {
+    return this.dataSet.getColumns().filter(function(column:Column){
+      return column.isHideable;
+    });
   }
 
   getRows(): Array<Row> {

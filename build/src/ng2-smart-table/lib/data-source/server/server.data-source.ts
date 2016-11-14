@@ -97,8 +97,20 @@ export class ServerDataSource extends LocalDataSource {
 
     if (this.filterConf.filters) {
       this.filterConf.filters.forEach((fieldConf) => {
+        console.log(fieldConf);
         if (fieldConf['search']) {
-          searchParams.set(this.conf.filterFieldKey.replace('#field#', fieldConf['field']), fieldConf['search']);
+          let template = this.conf.filterFieldKey;
+          if(fieldConf['type']){
+            switch (fieldConf['type']){
+              case 'gt':
+                template = this.conf.filterFieldKeyGt;
+                break;
+              case 'lt':
+                template = this.conf.filterFieldKeyLt;
+                break;
+            }
+          }
+          searchParams.set(template.replace('#field#', fieldConf['field']), fieldConf['search']);
         }
       });
     }

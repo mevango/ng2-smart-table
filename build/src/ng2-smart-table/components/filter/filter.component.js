@@ -64,7 +64,7 @@ var FilterComponent = (function () {
         core_1.Component({
             selector: 'ng2-smart-table-filter',
             styles: [require('./filter.scss')],
-            template: "\n    <div class=\"ng2-smart-filter\" *ngIf=\"column.isFilterable\">\n      <input \n      [(ngModel)]=\"query\"\n      (keyup)=\"filter($event)\"\n      [ngClass]=\"inputClass\"\n      class=\"form-control\"\n      type=\"text\" \n      placeholder=\"{{ column.title }}\" />\n    </div>\n  "
+            template: "\n    <div class=\"ng2-smart-filter\" *ngIf=\"column.isFilterable && column.type=='string'\">\n      <input\n      [(ngModel)]=\"query\"\n      (keyup)=\"filter($event)\"\n      [ngClass]=\"inputClass\"\n      class=\"form-control\"\n      type=\"text\"\n      placeholder=\"{{ column.title }}\" />\n    </div>\n    <div class=\"ng2-smart-filter\" *ngIf=\"column.isFilterable && column.type=='date'\">\n          <mgo-date-range-filter [filter]=\"this\"></mgo-date-range-filter>\n    </div>\n  "
         }), 
         __metadata('design:paramtypes', [])
     ], FilterComponent);

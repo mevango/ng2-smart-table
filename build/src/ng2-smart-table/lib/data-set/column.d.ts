@@ -5,10 +5,12 @@ export declare class Column {
     protected dataSet: DataSet;
     title: string;
     type: string;
+    visible: boolean;
     class: string;
     isSortable: boolean;
     isEditable: boolean;
     isFilterable: boolean;
+    isHideable: boolean;
     sortDirection: string;
     defaultSortDirection: string;
     protected compareFunction: Function;

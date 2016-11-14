@@ -101,7 +101,7 @@ export class PagerComponent {
 
   protected initPages() {
     let pagesCount = this.getLast();
-    let showPagesCount = 4;
+    let showPagesCount = 10;
     showPagesCount = pagesCount < showPagesCount ? pagesCount : showPagesCount;
     this.pages = [];
 

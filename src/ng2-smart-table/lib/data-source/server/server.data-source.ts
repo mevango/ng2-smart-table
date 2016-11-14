@@ -73,7 +73,7 @@ export class ServerDataSource extends LocalDataSource {
   protected createRequestOptions(): RequestOptionsArgs {
     let requestOptions: RequestOptionsArgs = {};
     requestOptions.search = new URLSearchParams();
-
+    requestOptions.withCredentials = this.conf.withCredentials;
     requestOptions = this.addSortRequestOptions(requestOptions);
     requestOptions = this.addFilterRequestOptions(requestOptions);
     return this.addPagerRequestOptions(requestOptions);

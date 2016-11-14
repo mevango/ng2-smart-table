@@ -25,6 +25,7 @@ export declare class Ng2SmartTableComponent implements OnChanges {
     onDelete(row: Row, event: any): boolean;
     onCreate(row: Row, event: any): boolean;
     onSave(row: Row, event: any): boolean;
+    onChangeColumns(grid: Grid, event: any): void;
     protected initGrid(): void;
     protected prepareSource(): DataSource;
     protected prepareSettings(): Object;

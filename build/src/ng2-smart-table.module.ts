@@ -7,6 +7,7 @@ import { CellComponent } from './ng2-smart-table/components/cell/cell.component'
 import { FilterComponent } from './ng2-smart-table/components/filter/filter.component';
 import { PagerComponent } from './ng2-smart-table/components/pager/pager.component';
 import { TitleComponent } from './ng2-smart-table/components/title/title.component';
+import { MgoDateRangeFilter } from "./ng2-smart-table/components/filter/mgo-date-range-filter/mgo-date-range-filter.component";
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import { TitleComponent } from './ng2-smart-table/components/title/title.compone
     FilterComponent,
     PagerComponent,
     TitleComponent,
+    MgoDateRangeFilter,
     ...NG2_SMART_TABLE_DIRECTIVES
   ],
   exports: [
