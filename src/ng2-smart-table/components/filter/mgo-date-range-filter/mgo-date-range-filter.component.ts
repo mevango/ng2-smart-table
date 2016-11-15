@@ -1,6 +1,5 @@
 import {ViewEncapsulation} from '@angular/core';
 
-import * as jQuery from 'jquery/dist/jquery';
 import 'bootstrap-daterangepicker/daterangepicker.js';
 import * as moment from 'moment/moment';
 import {
@@ -8,7 +7,7 @@ import {
     SimpleChanges
 } from '@angular/core';
 import {FilterComponent} from "../filter.component";
-
+declare var jQuery:any;
 @Component({
     selector: 'mgo-date-range-filter',
     encapsulation: ViewEncapsulation.None,
@@ -73,6 +72,18 @@ export class MgoDateRangeFilter implements AfterViewInit {
 
         jQuery('#' + this.idDatePicker).on('cancel.daterangepicker', function(ev, picker) {
             jQuery(this).val('');
+            self.filter.source.addFilter({
+                field: self.filter.column.id,
+                search: '',
+                type: "gt", //gt,lt,like
+                filter: self.filter.column.getFilterFunction()
+            });
+            self.filter.source.addFilter({
+                field: self.filter.column.id,
+                search: '',
+                type: "lt", //gt,lt,like
+                filter: self.filter.column.getFilterFunction()
+            });
         });
     }
 

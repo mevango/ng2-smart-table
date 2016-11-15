@@ -82,6 +82,9 @@ module.exports = function (options) {
 
       // remove other default values
       modulesDirectories: ['node_modules'],
+      alias: {
+        jQuery: "./node_modules/jquery/src/jquery.js",
+      }
 
     },
 
@@ -307,6 +310,13 @@ module.exports = function (options) {
        */
       new HtmlElementsPlugin({
         headTags: require('./head-config.common')
+      }),
+
+
+      new webpack.ProvidePlugin({
+        jQuery: 'jquery',
+        $: 'jquery',
+        jquery: 'jquery'
       })
 
     ],

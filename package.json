@@ -31,6 +31,7 @@
     "@angularclass/hmr": "~1.2.0",
     "@angularclass/hmr-loader": "~3.0.2",
     "@types/hammerjs": "^2.0.33",
+    "@types/jquery": "^2.0.34",
     "@types/lodash": "0.0.28",
     "@types/node": "^6.0.38",
     "@types/source-map": "^0.1.27",

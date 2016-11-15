@@ -9,7 +9,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var jQuery = require('jquery/dist/jquery');
 require('bootstrap-daterangepicker/daterangepicker.js');
 var core_2 = require('@angular/core');
 var filter_component_1 = require("../filter.component");
@@ -56,6 +55,18 @@ var MgoDateRangeFilter = (function () {
         });
         jQuery('#' + this.idDatePicker).on('cancel.daterangepicker', function (ev, picker) {
             jQuery(this).val('');
+            self.filter.source.addFilter({
+                field: self.filter.column.id,
+                search: '',
+                type: "gt",
+                filter: self.filter.column.getFilterFunction()
+            });
+            self.filter.source.addFilter({
+                field: self.filter.column.id,
+                search: '',
+                type: "lt",
+                filter: self.filter.column.getFilterFunction()
+            });
         });
     };
     __decorate([
