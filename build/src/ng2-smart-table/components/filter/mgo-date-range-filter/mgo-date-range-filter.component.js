@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 require('bootstrap-daterangepicker/daterangepicker.js');
+var moment = require('moment/moment');
 var core_2 = require('@angular/core');
 var filter_component_1 = require("../filter.component");
 var MgoDateRangeFilter = (function () {
@@ -25,7 +26,7 @@ var MgoDateRangeFilter = (function () {
         console.log("filter daterange");
     };
     MgoDateRangeFilter.prototype.ngAfterViewInit = function () {
-        this.init();
+        setTimeout(this.init.bind(this), 1);
     };
     MgoDateRangeFilter.prototype.init = function () {
         var self = this;
@@ -35,6 +36,15 @@ var MgoDateRangeFilter = (function () {
             locale: {
                 format: "MM/DD/YYYY",
                 cancelLabel: 'Clear'
+            },
+            opens: "left",
+            ranges: {
+                'Today': [moment(), moment()],
+                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                'This Month': [moment().startOf('month'), moment().endOf('month')],
+                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
             }
         });
         jQuery('#' + this.idDatePicker).on('apply.daterangepicker', function (ev, picker) {
