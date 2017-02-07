@@ -11,8 +11,8 @@ declare var jQuery:any;
 @Component({
     selector: 'mgo-date-range-filter',
     encapsulation: ViewEncapsulation.None,
-    template: require('./mgo-date-range-filter.html'),
-    styles: [require('./mgo-date-range-filter.scss')],
+    templateUrl: './mgo-date-range-filter.html',
+    styleUrls: ['mgo-date-range-filter.scss'],
 })
 export class MgoDateRangeFilter implements AfterViewInit {
     @Input()

@@ -207,15 +207,14 @@ export class Ng2SmartTableComponent implements OnChanges {
     return false;
   }
 
-  initGrid(): void {
-  onChangeColumns(grid : Grid, event){
+ onChangeColumns(grid : Grid, event){
     for (var i = 0; i < event.target.length; i++) {
       var obj = event.target[i];
       grid.getDataSet().findColumnById(obj.value).visible = obj.selected;
     }
   }
 
-  protected initGrid(): void {
+  initGrid(): void {
     this.source = this.prepareSource();
     this.grid = new Grid(this.source, this.prepareSettings());
     this.grid.onSelectRow().subscribe((row) => this.onSelectRow(row));

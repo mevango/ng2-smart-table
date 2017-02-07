@@ -321,7 +321,7 @@ module.exports = function (options) {
         jQuery: 'jquery',
         $: 'jquery',
         jquery: 'jquery'
-      })
+      }),
 
       /**
        * Plugin LoaderOptionsPlugin (experimental)
