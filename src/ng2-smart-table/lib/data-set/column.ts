@@ -12,9 +12,11 @@ export class Column {
   public isHideable: boolean = true;
   public sortDirection: string = '';
   public defaultSortDirection: string = '';
-  protected compareFunction: Function;
-  protected valuePrepareFunction: Function;
-  protected filterFunction: Function;
+  public editor: {type: string, config: any} = {type: '', config: {}};
+  compareFunction: Function;
+  valuePrepareFunction: Function;
+  filterFunction: Function;
+  cellRenderFunction: Function;
 
   constructor(public id: string, protected settings: any, protected dataSet: DataSet) {
     this.process();
@@ -32,10 +34,19 @@ export class Column {
     return this.filterFunction;
   }
 
+  public getCellRenderFunction(): Function {
+    return this.cellRenderFunction;
+  }
+
+  public getConfig(): any {
+    return this.editor.config;
+  }
+
   protected process(): void {
     this.title = this.settings['title'];
     this.class = this.settings['class'];
     this.type = this.prepareType();
+    this.editor = this.settings['editor'];
 
     this.isFilterable = typeof this.settings['filter'] === 'undefined' ? true : !!this.settings['filter'];
     this.defaultSortDirection = ['asc', 'desc'].indexOf(this.settings['sortDirection']) !== -1 ? this.settings['sortDirection'] : '';
@@ -47,18 +58,19 @@ export class Column {
     this.compareFunction = this.settings['compareFunction'];
     this.valuePrepareFunction = this.settings['valuePrepareFunction'];
     this.filterFunction = this.settings['filterFunction'];
+    this.cellRenderFunction = this.settings['cellRenderFunction'];
   }
 
-  protected prepareType(): string {
+  prepareType(): string {
     return this.settings['type'] || this.determineType();
   }
 
-  protected prepareSortDirection(): string {
+  prepareSortDirection(): string {
     return this.settings['sort'] === 'desc' ? 'desc' : 'asc';
   }
 
-  protected determineType(): string {
+  determineType(): string {
     // TODO: determine type by data
-    return 'string';
+    return 'text';
   }
 }

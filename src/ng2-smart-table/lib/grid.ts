@@ -10,19 +10,31 @@ export class Grid {
 
   createFormShown: boolean = false;
 
-  protected source: DataSource;
-  protected settings: any;
-  protected dataSet: DataSet;
+  source: DataSource;
+  settings: any;
+  dataSet: DataSet;
 
-  protected onSelectRowSource = new Subject<any>();
+  onSelectRowSource = new Subject<any>();
 
   constructor(source: DataSource, settings) {
     this.setSettings(settings);
     this.setSource(source);
   }
-  
-  showActionColumn(): boolean {
+
+  showActionColumn(position: string): boolean {
+    return this.isCurrentActionsPosition(position) && this.isActionsVisible();
+  }
+
+  isCurrentActionsPosition(position: string): boolean {
+    return position == this.getSetting('actions.position')
+  }
+
+  isActionsVisible(): boolean {
     return this.getSetting('actions.add') || this.getSetting('actions.edit') || this.getSetting('actions.delete');
+  }
+
+  isMultiSelectVisible(): boolean {
+    return this.getSetting('selectMode') === 'multi';
   }
 
   getNewRow(): Row {
@@ -34,7 +46,7 @@ export class Grid {
     this.dataSet = new DataSet([], this.getSetting('columns'));
 
     if (this.source) {
-      this.source.refresh();  
+      this.source.refresh();
     }
   }
 
@@ -52,7 +64,7 @@ export class Grid {
       changedRow.setData(data);
     });
   }
-  
+
   getSetting(name: string, defaultValue?: any): any {
     return getDeepFromObject(this.settings, name, defaultValue);
   }
@@ -76,6 +88,10 @@ export class Grid {
     this.dataSet.selectRow(row);
   }
 
+  multipleSelectRow(row: Row): void {
+    this.dataSet.multipleSelectRow(row);
+  }
+
   onSelectRow(): Observable<any> {
     return this.onSelectRowSource.asObservable();
   }
@@ -83,7 +99,7 @@ export class Grid {
   edit(row: Row): void {
     row.isInEditing = true;
   }
-  
+
   create(row: Row, confirmEmitter: EventEmitter<any>): void {
 
     let deferred = new Deferred();
@@ -107,7 +123,7 @@ export class Grid {
       deferred.resolve();
     }
   }
-  
+
   save(row: Row, confirmEmitter: EventEmitter<any>): void {
 
     let deferred = new Deferred();
@@ -133,14 +149,14 @@ export class Grid {
   }
 
   delete(row: Row, confirmEmitter: EventEmitter<any>): void {
-    
+
     let deferred = new Deferred();
     deferred.promise.then(() => {
       this.source.remove(row.getData());
     }).catch((err) => {
       // doing nothing
     });
-    
+
     if (this.getSetting('delete.confirmDelete')) {
       confirmEmitter.emit({
         data: row.getData(),
@@ -151,29 +167,32 @@ export class Grid {
       deferred.resolve();
     }
   }
-  
-  protected processDataChange(changes): void {
+
+  processDataChange(changes): void {
     if (this.shouldProcessChange(changes)) {
       this.dataSet.setData(changes['elements']);
-      let row = this.determineRowToSelect(changes);
-      if (row) {
-        this.onSelectRowSource.next(row);
+      if (this.getSetting('selectMode') !== 'multi') {
+        let row = this.determineRowToSelect(changes);
+
+        if (row) {
+          this.onSelectRowSource.next(row);
+        }
       }
     }
   }
-  
-  protected shouldProcessChange(changes): boolean {
-    if (['filter', 'sort', 'page', 'remove', 'refresh', 'load'].indexOf(changes['action']) !== -1) {
+
+  shouldProcessChange(changes): boolean {
+    if (['filter', 'sort', 'page', 'remove', 'refresh', 'load', 'paging'].indexOf(changes['action']) !== -1) {
       return true;
     } else if (['prepend', 'append'].indexOf(changes['action']) !== -1 && !this.getSetting('pager.display')) {
       return true;
     }
-    
+
     return false;
   }
 
   // TODO: move to selectable? Separate directive
-  protected determineRowToSelect(changes): Row {
+  determineRowToSelect(changes): Row {
 
     if (['load', 'page', 'filter', 'sort', 'refresh'].indexOf(changes['action']) !== -1) {
       return this.dataSet.select();
@@ -203,7 +222,7 @@ export class Grid {
     return null;
   }
 
-  protected prepareSource(source): DataSource {
+  prepareSource(source): DataSource {
     let initialSource = this.getInitialSort();
     if (initialSource && initialSource['field'] && initialSource['direction']) {
       source.setSort([initialSource], false);
@@ -216,7 +235,7 @@ export class Grid {
     return source;
   }
 
-  protected getInitialSort() {
+  getInitialSort() {
     let sortConf = {};
     this.getColumns().forEach((column: Column) => {
       if (column.isSortable && column.defaultSortDirection) {
@@ -226,5 +245,16 @@ export class Grid {
       }
     });
     return sortConf;
+  }
+
+  getSelectedRows(): Array<any> {
+    return this.dataSet.getRows()
+      .filter(r => r.isSelected)
+      .map(r => r.getData());
+  }
+
+  selectAllRows(status) {
+    this.dataSet.getRows()
+      .forEach(r => r.isSelected = status);
   }
 }

@@ -1,59 +1,96 @@
-import { Component, ViewChild , AfterViewInit} from '@angular/core';
-import { CustomServerDataSource } from './serve.data-source';
-import { Http } from '@angular/http';
-import {CustomServerDataSourceCRM} from "./serve.data-source-crm";
-import {Ng2SmartTableComponent} from "../../../../../../src/ng2-smart-table/ng2-smart-table.component";
-import {ServerDataSource} from "../../../../../../src/ng2-smart-table/lib/data-source/server/server.data-source";
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'basic-example-data',
-  styles: [],
   template: `
-    <ng2-smart-table #table (delete)="onDelete($event)" (edit)="onEdit($event)" (create)="onCreate($event)" [settings]="settings" [source]="source"></ng2-smart-table>
+    <ng2-smart-table [settings]="settings" [source]="data"></ng2-smart-table>
   `
 })
-export class BasicExampleDataComponent implements AfterViewInit{
-  ngAfterViewInit():void {
-    console.log(this.table);
-  }
-  @ViewChild('table')
-  table: any;
-
-  source: ServerDataSource;
-
-  onDelete(event):void{
-    console.log("onDelete",this.table, event);
-  }
-  onEdit(event):void{
-    console.log("onEdit",this.table, event);
-  }
-  onCreate(event):void{
-    console.log("onCreate",this.table, event);
-  }
-
+export class BasicExampleDataComponent {
 
   settings = {
-    mode:'external',
     columns: {
+      id: {
+        title: 'ID'
+      },
+      name: {
+        title: 'Full Name'
+      },
       username: {
-        title: 'Username',
-        hideable: false
+        title: 'User Name'
       },
-      first_name: {
-        title: 'First Name'
-      },
-      last_name: {
-        title: 'Last Name'
-      },
-      created_at: {
-        title: 'Created',
-        type: 'date',
-        editable: false
+      email: {
+        title: 'Email'
       }
     }
   };
 
-  constructor(protected http:Http) {
-    this.source = new ServerDataSource(http,{endPoint: 'http://localhost:1338/api/crm/v1/users', sortFieldKey:'sort_n', sortDirKey:'sort_t', pagerLimitKey:'number', pagerPageKey:'page', withCredentials:true});
-  }
+  data = [
+    {
+      id: 1,
+      name: "Leanne Graham",
+      username: "Bret",
+      email: "Sincere@april.biz"
+    },
+    {
+      id: 2,
+      name: "Ervin Howell",
+      username: "Antonette",
+      email: "Shanna@melissa.tv"
+    },
+    {
+      id: 3,
+      name: "Clementine Bauch",
+      username: "Samantha",
+      email: "Nathan@yesenia.net"
+    },
+    {
+      id: 4,
+      name: "Patricia Lebsack",
+      username: "Karianne",
+      email: "Julianne.OConner@kory.org"
+    },
+    {
+      id: 5,
+      name: "Chelsey Dietrich",
+      username: "Kamren",
+      email: "Lucio_Hettinger@annie.ca"
+    },
+    {
+      id: 6,
+      name: "Mrs. Dennis Schulist",
+      username: "Leopoldo_Corkery",
+      email: "Karley_Dach@jasper.info"
+    },
+    {
+      id: 7,
+      name: "Kurtis Weissnat",
+      username: "Elwyn.Skiles",
+      email: "Telly.Hoeger@billy.biz"
+    },
+    {
+      id: 8,
+      name: "Nicholas Runolfsdottir V",
+      username: "Maxime_Nienow",
+      email: "Sherwood@rosamond.me"
+    },
+    {
+      id: 9,
+      name: "Glenna Reichert",
+      username: "Delphine",
+      email: "Chaim_McDermott@dana.io"
+    },
+    {
+      id: 10,
+      name: "Clementina DuBuque",
+      username: "Moriah.Stanton",
+      email: "Rey.Padberg@karina.biz"
+    },
+    {
+      id: 11,
+      name: "Nicholas DuBuque",
+      username: "Nicholas.Stanton",
+      email: "Rey.Padberg@rosamond.biz"
+    }
+  ];
 }

@@ -1,33 +1,27 @@
 import { Component } from '@angular/core';
 
-import { LocalDataSource } from '../../../../../../ng2-smart-table';
-
 @Component({
-  selector: 'basic-example-source',
+  selector: 'basic-example-multi-select',
   template: `
-    <input #search class="search" type="text" placeholder="Search..." (keydown.enter)="onSearch(search.value)">
-    <ng2-smart-table [settings]="settings" [source]="source"></ng2-smart-table>
+    <ng2-smart-table [settings]="settings" [source]="data"></ng2-smart-table>
   `
 })
-export class BasicExampleSourceComponent {
+export class BasicExampleMultiSelectComponent {
 
   settings = {
+    selectMode: 'multi',
     columns: {
       id: {
-        title: 'ID',
-        filter: false
+        title: 'ID'
       },
       name: {
-        title: 'Full Name',
-        filter: false
+        title: 'Full Name'
       },
       username: {
-        title: 'User Name',
-        filter: false
+        title: 'User Name'
       },
       email: {
-        title: 'Email',
-        filter: false
+        title: 'Email'
       }
     }
   };
@@ -100,35 +94,4 @@ export class BasicExampleSourceComponent {
       email: "Rey.Padberg@rosamond.biz"
     }
   ];
-
-  source: LocalDataSource;
-
-  constructor() {
-    this.source = new LocalDataSource(this.data);
-  }
-
-  onSearch(query: string = ''): void {
-    this.source.setFilter([
-      // fields we want to inclue in the search
-      {
-        field: 'id',
-        search: query
-      },
-      {
-        field: 'name',
-        search: query
-      },
-      {
-        field: 'username',
-        search: query
-      },
-      {
-        field: 'email',
-        search: query
-      }
-    ], false);
-    // second parameter specifying whether to perform 'AND' or 'OR' search
-    // (meaning all columns should contain search query or at least one)
-    // 'AND' by default, so changing to 'OR' by setting false here
-  }
 }
